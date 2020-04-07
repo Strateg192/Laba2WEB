@@ -23,13 +23,19 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>Скользящее меню | Offcanvas template for Bootstrap (BS 4.0)</title>
-
+    <title>Студенческий файлообменник</title>
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap.min.css" rel="stylesheet">
-
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="offcanvas.css" rel="stylesheet">
+    <link href="css/offcanvas.css" rel="stylesheet">
+    <style>
+      TD, TH 
+      {
+        text-align: center;
+        padding: 5px; /* Поля вокруг текста */
+        border: 1px solid black; /* Рамка вокруг ячеек */
+      }
+    </style>
 </head>
 
   <body class="bg-light">
@@ -65,6 +71,12 @@
 
       <div class="my-3 p-3 bg-white rounded box-shadow">
         <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
+        <table style="width: 100%;">
+                    <tr> 
+                      <td>Название</td>
+                      <td>Дата и время</td>
+                      <td>Автор</td>
+                    </tr>
           <?php
             $countPostsOnOneBlock = 5;
             $numberblock = 0;
@@ -75,23 +87,21 @@
             $posts = ($db->query('select * from getblockposts('.$numberblock.');')->fetchAll(PDO::FETCH_ASSOC));
             foreach($posts as $key)
             { ?>
-                <div class="media text-muted pt-3">
-                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-                        <br/>
-                        <strong> <?php echo $key['postname']; ?> </strong>
-                        <strong> <?php $tmpdate = strtotime($key['datecreating']);
-                                        echo date('d.m.Y H:i:s', $tmpdate); ?> </strong>
-                        <strong> <?php echo $key['username']; ?> </strong>
-                    </p>
-                </div>
+                    <tr> 
+                      <td> <?php echo $key['postname']; ?> </td>
+                      <td> <?php $tmpdate = strtotime($key['datecreating']);
+                                        echo date('d.m.Y H:i:s', $tmpdate); ?> </td>
+                      <td> <?php echo $key['username']; ?> </td>
+                    </tr>
             <?php }
           ?>
+          </table>
         <div style="text-align: center;">
             <?php
             $sql = 'select count(*) from "posts"';
             $countblocks = ($db->query($sql)->fetch(PDO::FETCH_LAZY))['count']; //на странице отображается блок
             $countblocks /= $countPostsOnOneBlock;
+            $countblocks = $countblocks < 1 && $countblocks > 0 ? 1 : $countblocks;
             $countblocks = (int)$countblocks;
             $CBL = 9; //количество чисел в линии
             if($countblocks > $CBL)

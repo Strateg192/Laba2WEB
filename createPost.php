@@ -47,11 +47,9 @@
       <input type="text" name="textPost" placeholder="Содержимое поста">
       <br/>
       <input type="hidden" name="MAX_FILE_SIZE" value="10240000" />
-      <button onclick="addLoadFile()" type="button">+</button>
-      <button onclick="removeLoadFile()" type="button">-</button>
       <br/>
       <div>
-        <input name="userfile[]" type="file" />
+        <input class="form-control" name="userfile[]" type="file" accept=".zip,.doc,.docx,.xls,.xlsx,.pdf,.jpg,.png" required multiple />
       </div>
       <br/>
       <button type="submit">Создать</button>

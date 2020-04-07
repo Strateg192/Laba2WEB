@@ -12,13 +12,8 @@
             session_start();
             $_SESSION['username'] = $row['name'];
             $_SESSION['login'] = $row['login'];
-            echo "You in!";
-            header('Location: http://lgtu.ru/');
         }
-        else
-        {
-            echo 'no';
-        }
+        header('Location: http://lgtu.ru/');
         return;
     }
 ?>
