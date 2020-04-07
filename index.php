@@ -39,38 +39,15 @@
 </head>
 
   <body class="bg-light">
-      <div style="display: grid; grid-template-columns: auto min-content;">
-        <div style="display: flex;">
-            
-        </div>
-            <div style="display: flex; grid-column-start: 2; grid-row-start: 1;">
-            <?php if(!isset($_SESSION['username'])) { ?>
-              <a href="signin.php">Авторизация</a>
-              /
-              <a href="registr.php">Регистрация</a>
-            <?php } else { ?>
-              <p>Добро пожаловать <?php echo $_SESSION['username']; ?> </p>
-              <br/>
-              <a href="exit.php">Выход</a>
-            <?php } ?>
-            </div>
-      </div>
+    <?php include 'header.php'; ?>
       <?php if(isset($_SESSION['username']) && isset($_SESSION['login'])) { ?>
       <form>
         <button formaction="createPost.php">Добавить пост</button>
       </form>
       <?php } ?>
-    <main role="main" class="container" style="margin-top: 100px;">
-      <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
-        <img class="mr-3" src="bootstrap-outline.svg" alt="" width="48" height="48">
-        <div class="lh-100">
-          <h6 class="mb-0 text-white lh-100">Bootstrap</h6>
-          <small>Since 2011</small>
-        </div>
-      </div>
-
+    <main role="main" class="container" style="margin-top: 10px;">
       <div class="my-3 p-3 bg-white rounded box-shadow">
-        <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
+        <h6 class="border-bottom border-gray pb-2 mb-0">Последние добавленные посты</h6>
         <table style="width: 100%;">
                     <tr> 
                       <td>Название</td>
@@ -88,7 +65,7 @@
             foreach($posts as $key)
             { ?>
                     <tr> 
-                      <td> <?php echo $key['postname']; ?> </td>
+                      <td><a href="http://lgtu.ru/post.php/?idpost=<?php echo $key['idpost']; ?>"> <?php echo $key['postname']; ?> </a></td>
                       <td> <?php $tmpdate = strtotime($key['datecreating']);
                                         echo date('d.m.Y H:i:s', $tmpdate); ?> </td>
                       <td> <?php echo $key['username']; ?> </td>
@@ -102,7 +79,7 @@
             $countblocks = ($db->query($sql)->fetch(PDO::FETCH_LAZY))['count']; //на странице отображается блок
             $countblocks /= $countPostsOnOneBlock;
             $countblocks = $countblocks < 1 && $countblocks > 0 ? 1 : $countblocks;
-            $countblocks = (int)$countblocks;
+            $countblocks = ceil($countblocks);
             $CBL = 9; //количество чисел в линии
             if($countblocks > $CBL)
             {

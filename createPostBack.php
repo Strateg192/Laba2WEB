@@ -19,7 +19,7 @@
         {
             if($error == UPLOAD_ERR_OK)
             {
-                $uploaddir = '/files/' . $_SESSION['username'] . '/' . $lastidpost;
+                $uploaddir = '/files/' . $iduser . '/' . $lastidpost;
                 if(!file_exists($uploaddir))
                 {
                     mkdir($uploaddir, 0777, true);

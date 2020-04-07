@@ -16,29 +16,9 @@
     <link rel="icon" href="favicon.ico">
 
     <title>Создание поста</title>
-      <script>
-          function addLoadFile()
-          {
-              let loadElems = document.getElementsByName("userfile[]");
-              if(loadElems.length < 10)
-              {
-                  let newLoadElem = document.createElement("input");
-                  newLoadElem.name = "userfile[]";
-                  newLoadElem.type = "file";
-                  loadElems[loadElems.length - 1].parentNode.insertBefore(newLoadElem, loadElems[loadElems.length - 1].nextSibling);
-              }
-          }
-          function removeLoadFile()
-          {
-              let loadElems = document.getElementsByName("userfile[]");
-              if(loadElems.length > 1)
-              {
-                  loadElems[loadElems.length-1].parentNode.removeChild(loadElems[loadElems.length-1]);
-              }
-          }
-      </script>
 </head>
   <body>
+  <?php include 'header.php'; ?>
   <form action="createPostBack.php" method="POST" enctype="multipart/form-data">
       <label>Название:</label>
       <input type="text" name="namePost" placeholder="Навзание вашего поста">
